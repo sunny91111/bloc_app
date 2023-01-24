@@ -1,13 +1,12 @@
 // To parse this JSON data, do
 //
-//     final boredActivity = boredActivityFromJson(jsonString);
+//     final boredModel = boredModelFromJson(jsonString);
 
 import 'dart:convert';
 
-BoredModel boredActivityFromJson(String str) =>
-    BoredModel.fromJson(json.decode(str));
+BoredModel boredModelFromJson(String str) => BoredModel.fromJson(json.decode(str));
 
-String boredActivityToJson(BoredModel data) => json.encode(data.toJson());
+String boredModelToJson(BoredModel data) => json.encode(data.toJson());
 
 class BoredModel {
   BoredModel({
@@ -29,22 +28,22 @@ class BoredModel {
   double accessibility;
 
   factory BoredModel.fromJson(Map<String, dynamic> json) => BoredModel(
-        activity: json["activity"],
-        type: json["type"],
-        participants: json["participants"],
-        price: json["price"].toDouble(),
-        link: json["link"],
-        key: json["key"],
-        accessibility: json["accessibility"].toDouble(),
-      );
+    activity: json["activity"],
+    type: json["type"],
+    participants: json["participants"],
+    price: json["price"].toDouble(),
+    link: json["link"],
+    key: json["key"],
+    accessibility: json["accessibility"].toDouble(),
+  );
 
   Map<String, dynamic> toJson() => {
-        "activity": activity,
-        "type": type,
-        "participants": participants,
-        "price": price,
-        "link": link,
-        "key": key,
-        "accessibility": accessibility,
-      };
+    "activity": activity,
+    "type": type,
+    "participants": participants,
+    "price": price,
+    "link": link,
+    "key": key,
+    "accessibility": accessibility,
+  };
 }

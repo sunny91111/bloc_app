@@ -17,7 +17,7 @@ class HomeLoadedState extends HomeState {
   HomeLoadedState(this.activityName, this.activityType, this.participants);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [activityName, activityType, participants];
 }
 
 class HomeNoInternetState extends HomeState {

@@ -9,6 +9,11 @@ class LoadApiEvent extends HomeEvent {
   List<Object?> get props => [];
 }
 
+class UICreatedEvent extends HomeEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class NoInternetEvent extends HomeEvent {
   @override
   List<Object?> get props => [];

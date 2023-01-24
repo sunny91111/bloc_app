@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bloc_app/home/bloc/home_event.dart';
 import 'package:bloc_app/home/bloc/home_state.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -12,25 +13,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc(this._boredService, this._connectivityService)
       : super(HomeLoadingState()) {
-    _connectivityService.connectivityStream.stream.listen((event) {
+    on<UICreatedEvent>(listenConnectivityService);
+    //on<LoadApiEvent>(onLoadApiEvent);
+    //on<NoInternetEvent>(onNoInternetEvent);
+  }
+
+  FutureOr<void> onNoInternet( emit) {
+    emit(HomeNoInternetState());
+  }
+
+  void listenConnectivityService(event, emit) {
+    _connectivityService.connectivityStream.stream.listen((event) async {
       if (event == ConnectivityResult.none) {
         print('No Internet');
-        add(NoInternetEvent());
+        onNoInternet(emit);
       } else {
         print('Yes Internet');
-        add(LoadApiEvent());
+        await onLoadApi(emit);
       }
     });
+  }
 
-    on<LoadApiEvent>((event, emit) async {
-      emit(HomeLoadingState());
-      final activity = await _boredService.getBoredActivity();
-      emit(HomeLoadedState(
-          activity.activity, activity.type, activity.participants));
-    });
-
-    on<NoInternetEvent>((event, emit) {
-      emit(HomeNoInternetState());
-    });
+  FutureOr<void> onLoadApi(emit) async {
+    emit(HomeLoadingState());
+    final activity = await _boredService.getBoredModel();
+    emit(HomeLoadedState(
+        activity.activity, activity.type, activity.participants));
   }
 }

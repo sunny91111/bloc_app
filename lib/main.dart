@@ -31,12 +31,11 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: BlocProvider(
-          create: (context) => HomeBloc(
-            RepositoryProvider.of<BoredService>(context),
-            RepositoryProvider.of<ConnectivityService>(context),
-          )..add(LoadApiEvent()),
-          child: const HomeScreen(),
-        ),
+            create: (context) => HomeBloc(
+              RepositoryProvider.of<BoredService>(context),
+              RepositoryProvider.of<ConnectivityService>(context),
+            )..add(UICreatedEvent()),
+            child: const HomeScreen()),
       ),
     );
   }
